@@ -1,0 +1,46 @@
+data_dir: /media/zhengbowen/data/genrec/
+log_dir: run_logs/
+
+rand_seed: 2024
+reproducibility: true
+
+# Overwritting configs
+lr: 0.001
+learner: adagrad    # adamw or adagrad
+scheduler_type: constant # constant, linear
+weight_decay: 0.0    # Overwrite weight decay
+warmup_steps: 0
+
+batch_size: 2048
+epochs: 10000
+
+
+verbose_step: 500
+verbose_delay: 0
+save_limit: 2
+ckpt_name: letter3x256_768
+
+
+# Config for sentence embedding model
+sent_emb_model: /media/public/models/huggingface/sentence-transformers/sentence-t5-base
+sent_emb_batch_size: 512
+sent_emb_dim: 768
+sent_emb_pca: -1     # -1 means no PCA, otherwise PCA dimension
+
+
+cf_emb_dim: 32
+
+# Config for RQ
+n_codebooks: 3
+codebook_size: 256
+# Config for RQ-VAE
+hidden_sizes: [512,256,128,32]
+dropout: 0.0
+beta: 0.25
+
+
+alpha: 0.01
+mu: 0.0
+
+# Config for token generation
+#ckpt_list: [0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]

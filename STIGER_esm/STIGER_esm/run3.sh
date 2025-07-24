@@ -1,0 +1,675 @@
+
+
+IDS5=[9996,9997,9998,9999,10000]
+IDS10=[9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+IDS15=[9986,9987,9988,9989,9990,9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+IDS20=[9981,9982,9983,9984,9985,9986,9987,9988,9989,9990,9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+IDS25=[9976,9977,9978,9979,9980,9981,9982,9983,9984,9985,9986,9987,9988,9989,9990,9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+IDS30=[9971,9972,9973,9974,9975,9976,9977,9978,9979,9980,9981,9982,9983,9984,9985,9986,9987,9988,9989,9990,9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+IDS35=[9966,9967,9968,9969,9970,9971,9972,9973,9974,9975,9976,9977,9978,9979,9980,9981,9982,9983,9984,9985,9986,9987,9988,9989,9990,9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+IDS40=[9961,9962,9963,9964,9965,9966,9967,9968,9969,9970,9971,9972,9973,9974,9975,9976,9977,9978,9979,9980,9981,9982,9983,9984,9985,9986,9987,9988,9989,9990,9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+IDS45=[9956,9957,9958,9959,9960,9961,9962,9963,9964,9965,9966,9967,9968,9969,9970,9971,9972,9973,9974,9975,9976,9977,9978,9979,9980,9981,9982,9983,9984,9985,9986,9987,9988,9989,9990,9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+IDS50=[9951,9952,9953,9954,9955,9956,9957,9958,9959,9960,9961,9962,9963,9964,9965,9966,9967,9968,9969,9970,9971,9972,9973,9974,9975,9976,9977,9978,9979,9980,9981,9982,9983,9984,9985,9986,9987,9988,9989,9990,9991,9992,9993,9994,9995,9996,9997,9998,9999,10000]
+
+
+DATASET=Musical_Instruments
+TOKEN=sentence-t5-base_256,256,256,256_PCA128
+
+
+CUDA_VISIBLE_DEVICES=4,5,6,7 \
+accelerate launch \
+    --main_process_port 21232 \
+    --num_processes 4 main.py \
+    --dataset=$DATASET \
+    --config_file=config/ptconfig_mnt.yaml \
+    --token_prefix=$TOKEN \
+    --lr=0.005 \
+    --epochs=200 \
+    --num_layers=6 \
+    --num_decoder_layers=6 \
+    --save_interval=10 \
+    --patience=50 \
+    --eval_interval=1 \
+    --val_ratio=0.5 \
+    --val_delay=198 \
+    --sem_id_epochs=$IDS25
+
+
+#echo "best test 1Layer 5/10/15 tokens ========================================================================================"
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=1 \
+#    --num_decoder_layers=1 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS5
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=1 \
+#    --num_decoder_layers=1 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS10
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=1 \
+#    --num_decoder_layers=1 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS15
+#
+#echo "best test 2Layer 5/10/15 tokens ========================================================================================"
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=2 \
+#    --num_decoder_layers=2 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS5
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=2 \
+#    --num_decoder_layers=2 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS10
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=2 \
+#    --num_decoder_layers=2 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS15
+
+
+#echo "best test 3Layer 5/10/15/20/25/30 tokens ========================================================================================"
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=3 \
+#    --num_decoder_layers=3 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS5
+
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=3 \
+#    --num_decoder_layers=3 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS10
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=3 \
+#    --num_decoder_layers=3 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS15
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=3 \
+#    --num_decoder_layers=3 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS20
+
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=3 \
+#    --num_decoder_layers=3 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS25
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=3 \
+#    --num_decoder_layers=3 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS30
+#
+#
+#
+#echo "best test 4Layer 5/10/15/20 tokens ========================================================================================"
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=4 \
+#    --num_decoder_layers=4 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS5
+
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=4 \
+#    --num_decoder_layers=4 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS10
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=4 \
+#    --num_decoder_layers=4 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS15
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=4 \
+#    --num_decoder_layers=4 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS20
+
+
+
+
+#echo "best test 5Layer 10/15/20/25 tokens ========================================================================================"
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=5 \
+#    --num_decoder_layers=5 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS10
+
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=5 \
+#    --num_decoder_layers=5 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS15
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=5 \
+#    --num_decoder_layers=5 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS20
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=5 \
+#    --num_decoder_layers=5 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS25
+
+#echo "best test 6Layer 5/10/15/20/25/30 tokens ========================================================================================"
+
+
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=6 \
+#    --num_decoder_layers=6 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS5
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=6 \
+#    --num_decoder_layers=6 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS10
+
+
+
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=6 \
+#    --num_decoder_layers=6 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS15
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=6 \
+#    --num_decoder_layers=6 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS20
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=5,6,7,8 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=6 \
+#    --num_decoder_layers=6 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS25
+
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=6 \
+#    --num_decoder_layers=6 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS30
+#
+#
+#
+#
+#
+#echo "best test 7Layer 20/25/30 tokens ========================================================================================"
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=7 \
+#    --num_decoder_layers=7 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS20
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=7 \
+#    --num_decoder_layers=7 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS25
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=7 \
+#    --num_decoder_layers=7 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS30
+#
+#
+#
+#echo "best test 8Layer 20/25/30 tokens ========================================================================================"
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=8 \
+#    --num_decoder_layers=8 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS20
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=8 \
+#    --num_decoder_layers=8 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS25
+#
+#
+#
+#CUDA_VISIBLE_DEVICES=1,2,3,4 \
+#accelerate launch \
+#    --main_process_port 22232 \
+#    --num_processes 4 main.py \
+#    --dataset=$DATASET \
+#    --config_file=config/ptconfig.yaml \
+#    --token_prefix=$TOKEN \
+#    --lr=0.005 \
+#    --epochs=200 \
+#    --num_layers=8 \
+#    --num_decoder_layers=8 \
+#    --save_interval=10 \
+#    --patience=50 \
+#    --eval_interval=1 \
+#    --val_ratio=0.5 \
+#    --val_delay=198 \
+#    --sem_id_epochs=$IDS30
